@@ -1,14 +1,30 @@
 'scopeName': 'source.coq'
 'fileTypes': [
   'v'
-],
+]
 'name': 'Coq'
 'patterns': [
   {
     'include': '#comment'
   },
   {
-    'include': '#keyword'
+   'include': '#gallina'
+  },
+  {
+    'include': '#vernacular'
+  },
+  {
+    'include': '#tactics'
+  },
+  {
+    'include': '#terminators'
+  },
+  {
+    'include': '#admitters'
+  },
+
+  {
+    'include': '#strings'
   }
 ]
 'repository':
@@ -31,6 +47,69 @@
         ]
       }
     ]
-  'keyword':
-    'name': 'keyword.other.coq'
-    'match': '\\b(as|at|cofix|else|end|exists|exists2|fix|for|forall|fun|if|IF|in|let|match|mod|Prop|return|Set|then|Type|using|where|with)\\b'
+  'gallina':
+    'name': 'keyword.other.gallina.coq'
+    'match': '\\b(as|at|cofix|crush|else|end|False|fix|for|forall|fun|
+                 |if|in|is|let|match|of|Prop|return|struct|then|True|Type|
+                 |when|with)\\b'
+  'vernacular':
+    'name': 'keyword.other.vernacular.coq'
+    'match': '\\b(Abort|About|Add|All|Arguments|Asymmetric|Axiom|
+                  |Bind|Canonical|Check|Class|Close|Coercion|CoFixpoint|
+                  |Comments|CoInductive|Context|Constructors|Contextual|
+                  |Corollary|Defined|Definition|Delimit|Fail|Eval|End|Example|
+                  |Export|Fact|Fixpoint|From|Global|Goal|Graph|Hint|Hypotheses|
+                  |Hypothesis|Implicit|Implicits|Import|Inductive|Infix|
+                  |Instance|Lemma|Let|Local|Ltac|Module|Morphism|Next|Notation|
+                  |Obligation|Open|Parameter|Parameters|Prenex|Print|Printing|
+                  |Program|Patterns|Projections|Proof|Proposition|Qed|Record|
+                  |Relation|Remark|Require|Reserved|Resolve|Rewrite|Save|Scope|
+                  |Search|SearchAbout|Section|Set|Show|Strict|Structure|Tactic|
+                  |Time|Theorem|Types|Unset|Variable|Variables|View)\\b'
+  'tactics' :
+    'name' : 'keyword.other.tactic.coq'
+    'match' : '\\b(after|apply|assert|auto|autorewrite|case|change|clear|
+                  |compute|congruence|constructor|congr|cut|cutrewrite|
+                  |dependent|destruct|eapply|eassumption|eauto|econstructor|
+                  |elim|exists|field|firstorder|fold|fourier|generalize|
+                  |have|hnf|induction|injection|instantiate|intro|intros|
+                  |inversion|left|move|pattern|pose|refine|remember|rename|
+                  |replace|revert|rewrite|right|ring|set|simpl|specialize|
+                  |split|subst|suff|symmetry|transitivity|trivial|unfold|
+                  |unlock|using|vm_compute|where|wlog)\\b'
+  'terminators' :
+    'name' : 'keyword.other.terminator.coq'
+    'match' : '\\b(assumption|by|contradiction|discriminate|exact|
+                  |now|omega|reflexivity)\\b'
+  'admitters' :
+    'name' : 'keyword.other.admitter.coq'
+    'match' : '\\b(admit|Admitted)\\b'
+  'strings':
+    'comment' : 'borrowed from ocaml'
+    'patterns': [
+      {
+        'begin': '(?=[^\\\\])(")'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.coq'
+        'end': '(")'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.coq'
+        'name': 'string.quoted.double.coq'
+        'patterns': [
+          {
+            'match': '\\\\$[ \\t]*'
+            'name': 'punctuation.separator.string.ignore-eol.coq'
+          }
+          {
+            'match': '\\\\(x[a-fA-F0-9][a-fA-F0-9]|[0-2]\\d\\d|[bnrt\'"\\\\])'
+            'name': 'constant.character.string.escape.coq'
+          }
+          {
+            'match': '\\\\[\\|\\(\\)1-9$^.*+?\\[\\]]'
+            'name': 'constant.character.regexp.escape.coq'
+          }
+        ]
+      }
+    ]
